@@ -1,0 +1,21 @@
+.main__form-value-input {
+  all: unset;
+  border: 2px solid #fff;
+  width: 30px;
+  height: 20px;
+  border-radius: 6px;
+  margin: 0 0;
+  font-size: 15px;
+  text-align: center;
+  padding-bottom: 1px;
+}
+
+.main__form-value-input:focus {
+  border: 2px solid green;
+}
+
+.main__form-value-input::-webkit-outer-spin-button,
+.main__form-value-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

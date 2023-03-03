@@ -1,0 +1,6 @@
+.main__form-value {
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+  height: 25px;
+}
