@@ -17,3 +17,5 @@
 @import url(../blocks/main/__form-generate/main__form-generate.css);
 @import url(../blocks/main/__form-value-input/main__form-value-input.css);
 @import url(../blocks/main/__form-settings/main__form-settings.css);
+@import url(../blocks/main/__result-push-activate/main__result-push-activate.css);
+@import url(../blocks/main/__container-activate/main__container-activate.css);

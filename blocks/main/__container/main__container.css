@@ -1,5 +1,5 @@
 .main__container {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 10px;
   border-top: 2px solid #fff;
