@@ -2,6 +2,7 @@ const mainContainer = document.querySelector('.main__result')
 const mainContainerList = document.querySelectorAll('.main__result')
 const passwordContainer = document.querySelector('.main__container')
 const passwordLabel = mainContainer.querySelector('.main__result-password')
+const passwordLabelArray = document.querySelectorAll('.main__result-password')
 const pushCopy = mainContainer.querySelector('.main__result-push')
 const buttonForm = document.querySelector('.main__form')
 const buttonGenerate = buttonForm.querySelector('.main__form-generate')
@@ -13,8 +14,9 @@ let valueInput = buttonForm.querySelector('.main__form-value-input')
 // Установка дефолт-значения у инпута
 valueInput.value = 12
 // 72 символа
-const symbolList = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-const letterList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+const numberPassword = '0123456789'
+const upperCasePassword = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const lowerCasePassword = 'abcdefghijklmnopqrstuvwxyz'
 
 // Генератор случайных чисел с помощью crypto.getRandomValues
 function getRandomIntInclusive(min, max) {
@@ -26,40 +28,50 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(randomNumber * (max - min + 1)) + min;
 }
 
-// Функция генерации случайного пароля
-function createRandomPassword() {
+function checkCheckbox() {
   let checkboxNumberChecked = checkboxNumber.hasAttribute('checked')
   let checkboxUpperCaseChecked = checkboxUpperCase.hasAttribute('checked')
   let checkboxLowerCaseChecked = checkboxLowerCase.hasAttribute('checked')
-  let password = ''
-  let i = 0;
+  let packPassword = ''
+  if(checkboxNumberChecked) {
+    packPassword += numberPassword
+  }
+  if(checkboxUpperCaseChecked) {
+    packPassword += upperCasePassword
+  }
+  if(checkboxLowerCaseChecked) {
+    packPassword += lowerCasePassword
+  }
+  if(checkboxNumberChecked) {
+    packPassword += numberPassword
+  }
+  return packPassword
+}
+
+function whilePassword(elm) {
   const valueInputCheck = valueInput.value
+  let password = ''
+    let i = 0;
+    let arrayPassword = checkCheckbox()
     while(i < valueInputCheck) {
-      if(checkboxNumberChecked && checkboxUpperCaseChecked && checkboxLowerCaseChecked) {
-        password += symbolList[getRandomIntInclusive(0, 71)]
-        i++
-      } else if (checkboxNumberChecked && !checkboxUpperCaseChecked && checkboxLowerCaseChecked) {
-        password += symbolList[getRandomIntInclusive(0, 71)].toLowerCase()
-        i++
-      } else if (checkboxNumberChecked && checkboxUpperCaseChecked && !checkboxLowerCaseChecked) {
-        password += symbolList[getRandomIntInclusive(0, 71)].toUpperCase()
-        i++
-      } else if (!checkboxNumberChecked && checkboxUpperCaseChecked && checkboxLowerCaseChecked) {
-        password += letterList[getRandomIntInclusive(0, 51)]
-        i++
-      }
-}
-return password
-}
+      password += arrayPassword[getRandomIntInclusive(0, 71)]
+      i++
+    }
+    elm.textContent = password
+  }
 
-
-console.log(createRandomPassword())
-createRandomPassword()
+// Функция генерации случайного пароля
+function createRandomPassword() {
+  passwordLabelArray.forEach((item) => {
+    whilePassword(item)
+})
+}
 
 // Сабмит формы-отмена отправки данных, добавления класса на показ блока с паролями
 buttonForm.addEventListener('submit', (evt) => {
   evt.preventDefault()
   passwordContainer.classList.add('main__container-activate')
+  createRandomPassword()
 })
 
 // Установка обработчиков на каждый блок с паролем, для отображение пуша о копировании
