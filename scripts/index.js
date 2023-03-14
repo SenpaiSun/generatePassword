@@ -4,16 +4,18 @@ const passwordContainer = document.querySelector('.main__container')
 const passwordLabel = mainContainer.querySelector('.main__result-password')
 const passwordLabelArray = document.querySelectorAll('.main__result-password')
 const pushCopy = mainContainer.querySelector('.main__result-push')
+const pushCopyArray = document.querySelectorAll('.main__result-push')
 const buttonForm = document.querySelector('.main__form')
 const buttonGenerate = buttonForm.querySelector('.main__form-generate')
 const checkboxNumber = document.querySelector('#input__number')
 const checkboxUpperCase = document.querySelector('#input__upper')
 const checkboxLowerCase = document.querySelector('#input__lower')
+const checkboxArray = document.querySelectorAll('.main__form-value-checkbox')
 
 let valueInput = buttonForm.querySelector('.main__form-value-input')
 // Установка дефолт-значения у инпута
 valueInput.value = 12
-// 72 символа
+// Константы чекбоксов
 const numberPassword = '0123456789'
 const upperCasePassword = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const lowerCasePassword = 'abcdefghijklmnopqrstuvwxyz'
@@ -28,6 +30,17 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(randomNumber * (max - min + 1)) + min;
 }
 
+const addListenerCheckbox = () => {
+  checkboxArray.forEach((item) => {
+    item.addEventListener('click', function() {
+      item.toggleAttribute('checked')
+    })
+  })
+}
+
+addListenerCheckbox()
+
+// Функция по проверке чек-боксов и составления набора символов
 function checkCheckbox() {
   let checkboxNumberChecked = checkboxNumber.hasAttribute('checked')
   let checkboxUpperCaseChecked = checkboxUpperCase.hasAttribute('checked')
@@ -48,19 +61,29 @@ function checkCheckbox() {
   return packPassword
 }
 
+// Функция по созданию случайного пароля
 function whilePassword(elm) {
   const valueInputCheck = valueInput.value
   let password = ''
     let i = 0;
     let arrayPassword = checkCheckbox()
-    while(i < valueInputCheck) {
-      password += arrayPassword[getRandomIntInclusive(0, 71)]
-      i++
+    if(valueInputCheck < 20) {
+      while(i < valueInputCheck) {
+        password += arrayPassword[getRandomIntInclusive(0, arrayPassword.length - 1)]
+        i++
+      }
+      elm.textContent = password
+    } else {
+      while(i < 20) {
+        password += arrayPassword[getRandomIntInclusive(0, arrayPassword.length - 1)]
+        i++
+      }
+      elm.textContent = password
     }
-    elm.textContent = password
+
   }
 
-// Функция генерации случайного пароля
+// Функция генерации случайного пароля и добавление в верстку
 function createRandomPassword() {
   passwordLabelArray.forEach((item) => {
     whilePassword(item)
@@ -84,5 +107,11 @@ const renderPassword = (evt) => {
     })
   })
 }
+
+buttonGenerate.addEventListener('click', function(evt) {
+  pushCopyArray.forEach((item) => {
+    item.classList.remove('main__result-push-activate')
+  })
+})
 
 renderPassword()

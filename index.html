@@ -13,7 +13,7 @@
     </header>
     <main class="main">
       <form class="main__form" novalidate>
-        <h2 class="main__form-settings">Настройка генератора паролей</h2> 
+        <h2 class="main__form-settings">Настройка генератора паролей</h2>
         <div class="main__form-value">
           <label class="main__form-value-text" for="input__number">Цифры:</label >
           <input type="checkbox" name="input__number" id="input__number" class="main__form-value-checkbox" checked></input>
@@ -30,6 +30,7 @@
           <label class="main__form-value-text" for="password-length">Длина пароля:</label>
           <input type="text" class="main__form-value-input" name="password-length" id="password-length" required minlength="1" maxlength="2">
           <label class="main__form-value-text" for="password-length">символов</label>
+          <span class="main__error-input">Максимум 20 символов!</span>
         </div>
         <button type="submit" class="main__form-generate">Сгенерировать</button>
       </form>

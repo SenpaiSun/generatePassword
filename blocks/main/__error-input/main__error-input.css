@@ -1,0 +1,8 @@
+.main__error-input {
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin: 2px 0 0 10px;
+  font-weight: 400;
+  line-height: normal;
+}
